@@ -1,0 +1,156 @@
+swagger: '2.0'
+info:
+  version: 0.0.1
+  title: mfacilitate-spec
+  license:
+    name: MIT
+host: mfacilitate-api.deno.dev
+basePath: /
+schemes:
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+
+paths:
+  /meetings:
+    get:
+      summary: List all meetings
+      operationId: listMeetings
+      tags:
+        - meetings
+      responses:
+        '200':
+          description: A paged array of meetings
+          schema:
+            $ref: '#/definitions/Meetings'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      summary: Create a meetings
+      operationId: createMeetings
+      tags:
+        - meetings
+      parameters:
+        - name: meeting_id
+          in: query
+          required: true
+          type: string
+          format: uuid
+      responses:
+        '201':
+          description: Response
+          schema:
+            $ref: '#/definitions/PostResponse'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /themes:
+    get:
+      summary: List all themes
+      operationId: listThemes
+      tags:
+        - themes
+      responses:
+        '200':
+          description: A paged array of themes
+          schema:
+            $ref: '#/definitions/Themes'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      summary: Create a themes
+      operationId: createThemes
+      tags:
+        - themes
+      parameters:
+        - name: theme_id
+          in: query
+          required: true
+          type: string
+          format: uuid
+      responses:
+        '201':
+          description: Response
+          schema:
+            $ref: '#/definitions/PostResponse'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+definitions:
+  Meetings:
+    type: 'object'
+    required:
+      - meeting_id
+      - title
+      - start_at
+      - created_at
+      - updated_at
+    properties:
+      meeting_id:
+        type: string
+        format: uuid
+      start_at:
+        type: string
+        format: date-time
+      created_at:
+        type: string
+        format: date-time
+      updated_at:
+        type: string
+        format: date-time
+  Themes:
+    type: 'object'
+    required:
+      - theme_id
+      - title
+      - description
+      - url
+      - time
+      - created_at
+      - updated_at
+    properties:
+      theme_id:
+        type: string
+        format: uuid
+      title:
+        type: string
+      description:
+        type: string
+      url:
+        type: string
+      time:
+        type: integer
+      created_at:
+        type: string
+        format: date-time
+      updated_at:
+        type: string
+        format: date-time
+  PostResponse:
+    type: 'object'
+    required:
+      - statusText
+    properties:
+      statusText:
+        type: string
+  Error:
+    type: 'object'
+    required:
+      - error
+      - status
+      - statusText
+    properties:
+      error:
+        type: string
+      status:
+        type: integer
+      statusText:
+        type: string
