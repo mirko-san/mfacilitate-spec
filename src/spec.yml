@@ -49,6 +49,41 @@ paths:
           description: unexpected error
           schema:
             $ref: '#/definitions/Error'
+  /themes:
+    get:
+      summary: List all themes
+      operationId: listThemes
+      tags:
+        - themes
+      responses:
+        '200':
+          description: A paged array of themes
+          schema:
+            $ref: '#/definitions/Themes'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      summary: Create a themes
+      operationId: createThemes
+      tags:
+        - themes
+      parameters:
+        - name: theme_id
+          in: query
+          required: true
+          type: string
+          format: uuid
+      responses:
+        '201':
+          description: Response
+          schema:
+            $ref: '#/definitions/PostResponse'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
 definitions:
   Meetings:
     type: 'object'
@@ -65,6 +100,34 @@ definitions:
       start_at:
         type: string
         format: date-time
+      created_at:
+        type: string
+        format: date-time
+      updated_at:
+        type: string
+        format: date-time
+  Themes:
+    type: 'object'
+    required:
+      - theme_id
+      - title
+      - description
+      - url
+      - time
+      - created_at
+      - updated_at
+    properties:
+      theme_id:
+        type: string
+        format: uuid
+      title:
+        type: string
+      description:
+        type: string
+      url:
+        type: string
+      time:
+        type: integer
       created_at:
         type: string
         format: date-time
