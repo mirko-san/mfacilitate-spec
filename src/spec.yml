@@ -46,6 +46,32 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+  /meetings/{meetingId}:
+    get:
+      summary: Get meeting
+      operationId: getMeeting
+      tags:
+        - meeting
+      parameters:
+        - name: meetingId
+          in: path
+          required: true
+          description: meetingId
+          schema:
+            type : string
+            format: uuid
+      responses:
+        '200':
+          description: A meeting
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - data
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Meeting'
   /themes:
     get:
       summary: List all themes
@@ -94,6 +120,24 @@ components:
     Meetings:
       type: 'object'
       required:
+        - data
+        - limit
+        - offset
+        - total
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Meeting'
+        limit:
+          type: integer
+        offset:
+          type: integer
+        total:
+          type: integer
+    Meeting:
+      type: 'object'
+      required:
         - meeting_id
         - title
         - start_at
@@ -103,6 +147,8 @@ components:
         meeting_id:
           type: string
           format: uuid
+        title:
+          type: string
         start_at:
           type: string
           format: date-time
