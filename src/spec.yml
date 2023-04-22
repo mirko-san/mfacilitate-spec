@@ -67,6 +67,8 @@ paths:
             application/json:
               schema:
                 type: object
+                required:
+                  - data
                 properties:
                   data:
                     $ref: '#/components/schemas/Meeting'
@@ -118,11 +120,10 @@ components:
     Meetings:
       type: 'object'
       required:
-        - meeting_id
-        - title
-        - start_at
-        - created_at
-        - updated_at
+        - data
+        - limit
+        - offset
+        - total
       properties:
         data:
           type: array
