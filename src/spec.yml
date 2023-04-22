@@ -146,6 +146,8 @@ components:
         meeting_id:
           type: string
           format: uuid
+        title:
+          type: string
         start_at:
           type: string
           format: date-time
