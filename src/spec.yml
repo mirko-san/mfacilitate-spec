@@ -100,6 +100,25 @@ components:
         - created_at
         - updated_at
       properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Meeting'
+        limit:
+          type: integer
+        offset:
+          type: integer
+        total:
+          type: integer
+    Meeting:
+      type: 'object'
+      required:
+        - meeting_id
+        - title
+        - start_at
+        - created_at
+        - updated_at
+      properties:
         meeting_id:
           type: string
           format: uuid
